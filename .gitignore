@@ -1,0 +1,43 @@
+# Compiled source
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+.vscode/
+.vs/
+
+# Mono Auto Generated Files
+mono_crash.*
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# IIS Logs
+logs/
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+# Azure Web Apps deployment
+siteextensions/
+
+# DotNetCore
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# ASP.NET Core
+wwwroot/
+node_modules/
