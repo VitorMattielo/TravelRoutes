@@ -34,12 +34,18 @@ namespace TravelRoutesManagement.Infrastructure.Repositories
 
         public async Task<FlightConnection> GetById(int id)
         {
-            return await _context.FlightConnections.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.FlightConnections
+                .Include(x => x.AirportOrigin)
+                .Include(x => x.AirportDestination)
+                .FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<IEnumerable<FlightConnection>> GetAll()
         {
-            return await _context.FlightConnections.Include(x => x.AirportOrigin).Include(x => x.AirportDestination).ToListAsync();
+            return await _context.FlightConnections
+                .Include(x => x.AirportOrigin)
+                .Include(x => x.AirportDestination)
+                .ToListAsync();
         }
     }
 }

@@ -23,6 +23,10 @@ namespace TravelRoutesManagement.Domain.Facades
         public async Task Update(DTOUpdateFlightConnection dto)
         {
             var flightConnection = await _flightConnectionRepository.GetById(dto.Id);
+
+            if (flightConnection == null)
+                throw new Exception("Nenhuma conexão encontrada para o Id " + dto.Id);
+
             flightConnection.Update(dto.IdAirportOrigin, dto.IdAirportDestination, dto.Price);
             await _flightConnectionRepository.Update(flightConnection);
         }
@@ -30,12 +34,20 @@ namespace TravelRoutesManagement.Domain.Facades
         public async Task Delete(int id)
         {
             var flightConnection = await _flightConnectionRepository.GetById(id);
+
+            if (flightConnection == null)
+                throw new Exception("Nenhuma conexão encontrada para o Id " + id);
+
             await _flightConnectionRepository.Delete(flightConnection);
         }
 
         public async Task<DTOGetFlightConnections> GetAll()
         {
             var flightConnections = await _flightConnectionRepository.GetAll();
+
+            if (!flightConnections.Any())
+                throw new Exception("Nenhuma conexão encontrada");
+
             var dtoFlightConnections = flightConnections.Select(DTOFlightConnection.Of).ToList();
             return new DTOGetFlightConnections(dtoFlightConnections);
         }
@@ -43,6 +55,10 @@ namespace TravelRoutesManagement.Domain.Facades
         public async Task<DTOFlightConnection> GetById(int id)
         {
             var flightConnection = await _flightConnectionRepository.GetById(id);
+
+            if (flightConnection == null)
+                throw new Exception("Nenhuma conexão encontrada para o Id " + id);
+
             return DTOFlightConnection.Of(flightConnection);
         }
     }

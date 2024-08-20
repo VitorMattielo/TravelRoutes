@@ -23,6 +23,10 @@ namespace TravelRoutesManagement.Domain.Facades
         public async Task Update(DTOUpdateAirport dto)
         {
             var airport = await _airportRepository.GetById(dto.Id);
+
+            if (airport == null)
+                throw new Exception("Nenhum aeroporto encontrado para o Id " + dto.Id);
+
             airport.Update(dto.Name, dto.Acronym);
             await _airportRepository.Update(airport);
         }
@@ -30,12 +34,20 @@ namespace TravelRoutesManagement.Domain.Facades
         public async Task Delete(int id)
         {
             var airport = await _airportRepository.GetById(id);
+
+            if (airport == null)
+                throw new Exception("Nenhum aeroporto encontrado para o Id " + id);
+
             await _airportRepository.Delete(airport);
         }
 
         public async Task<DTOGetAirports> GetAll()
         {
             var airports = await _airportRepository.GetAll();
+
+            if (!airports.Any())
+                throw new Exception("Nenhum aeroporto encontrado");
+
             var dtoAirports = airports.Select(DTOAirport.Of).ToList();
             return new DTOGetAirports(dtoAirports);
         }
@@ -43,6 +55,10 @@ namespace TravelRoutesManagement.Domain.Facades
         public async Task<DTOAirport> GetById(int id)
         {
             var airport = await _airportRepository.GetById(id);
+
+            if (airport == null)
+                throw new Exception("Nenhum aeroporto encontrado para o Id " + id);
+
             return DTOAirport.Of(airport);
         }
     }

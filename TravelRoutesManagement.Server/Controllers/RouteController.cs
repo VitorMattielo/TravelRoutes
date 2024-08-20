@@ -15,14 +15,14 @@ namespace TravelRoutesManagement.Api.Controllers
         }
 
         [HttpGet("cheapest-route")]
-        public async Task<IActionResult> GetCheapestRoute([FromQuery] int idOrigin, int idDestionation)
+        public async Task<IActionResult> GetCheapestRoute([FromQuery] int idOrigin, int idDestination)
         {
             try
             {
-                if (idOrigin == 0 || idDestionation == 0)
+                if (idOrigin == 0 || idDestination == 0)
                     return BadRequest("A origem e destino devem ser ambos informados para consultar a rota mais barata!");
 
-                var cheapestRoute = await _getCheapestRouteUseCase.GetCheapestRoute(idOrigin, idDestionation);
+                var cheapestRoute = await _getCheapestRouteUseCase.GetCheapestRoute(idOrigin, idDestination);
                 return Ok(cheapestRoute);
             }
             catch (Exception ex)
