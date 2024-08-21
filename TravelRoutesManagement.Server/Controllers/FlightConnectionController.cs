@@ -88,7 +88,7 @@ namespace TravelRoutesManagement.Api.Controllers
             try
             {
                 await _flightConnectionFacade.Delete(id);
-                return NoContent();
+                return Ok();
             }
             catch (Exception ex)
             {
